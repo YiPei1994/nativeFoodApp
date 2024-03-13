@@ -1,22 +1,19 @@
-import products from "@/assets/data/products";
-import ProductListItem from "@/src/components/custom/ProductListItem";
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
+import ProductListItem from "@/components/custom/ProductListItem";
+import products from "@assets/data/products";
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      {products.map((product) => (
-        <ProductListItem key={product.id} product={product} />
-      ))}
-    </View>
+    <FlatList
+      data={products}
+      numColumns={2}
+      contentContainerStyle={{ gap: 10, padding: 10 }}
+      columnWrapperStyle={{ gap: 10 }}
+      renderItem={({ item }) => (
+        <ProductListItem key={item.id} product={item} />
+      )}
+    />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 10,
-    overflow: "scroll",
-  },
-});
+const styles = StyleSheet.create({});

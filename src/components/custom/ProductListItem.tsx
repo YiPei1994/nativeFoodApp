@@ -1,5 +1,5 @@
-import { Product } from "@/assets/types";
-import Colors from "@/src/constants/Colors";
+import Colors from "@/constants/Colors";
+import { Product } from "@assets/types";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 type ProductListItemProps = {
@@ -7,10 +7,12 @@ type ProductListItemProps = {
 };
 
 function ProductListItem({ product }: ProductListItemProps) {
+  const defaultPizzaImage =
+    "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
   return (
-    <View>
+    <View style={styles.container}>
       <Image
-        source={{ uri: product.image }}
+        source={{ uri: product.image || defaultPizzaImage }}
         style={styles.image}
         resizeMode="contain"
       />
@@ -23,6 +25,14 @@ function ProductListItem({ product }: ProductListItemProps) {
 export default ProductListItem;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 10,
+    overflow: "scroll",
+    flex: 1,
+    maxWidth: "50%",
+  },
   image: {
     width: "100%",
     aspectRatio: 1,
