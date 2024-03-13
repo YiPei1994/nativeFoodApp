@@ -1,24 +1,25 @@
-import Colors from "@/constants/Colors";
+import Colors, { defaultPizzaImage } from "@/constants/Colors";
 import { Product } from "@assets/types";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Link } from "expo-router";
+import { Image, Pressable, StyleSheet, Text } from "react-native";
 
 type ProductListItemProps = {
   product: Product;
 };
 
 function ProductListItem({ product }: ProductListItemProps) {
-  const defaultPizzaImage =
-    "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png";
   return (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: product.image || defaultPizzaImage }}
-        style={styles.image}
-        resizeMode="contain"
-      />
-      <Text style={styles.title}>{product.name}</Text>
-      <Text style={styles.price}>${product.price.toFixed(2)}</Text>
-    </View>
+    <Link href={`/menu/${product.id}`} asChild>
+      <Pressable style={styles.container}>
+        <Image
+          source={{ uri: product.image || defaultPizzaImage }}
+          style={styles.image}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}>{product.name}</Text>
+        <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+      </Pressable>
+    </Link>
   );
 }
 
