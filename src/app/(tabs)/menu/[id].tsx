@@ -13,12 +13,13 @@ const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
   const [selectedSize, setSelectedSize] = useState<PizzaSize>("M");
 
-  const product = products.filter((product) => product.id === +id)[0];
+  const product = products.find((product) => product.id === +id);
 
   const addToCart = () => {
     if (!product) return;
-    console.warn("Add to cart");
   };
+
+  if (!product) return;
 
   return (
     <View style={styles.container}>
