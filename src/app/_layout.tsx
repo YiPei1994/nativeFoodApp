@@ -9,7 +9,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "../components/useColorScheme.web";
-import { CartContextProvider } from "@/store/cartContext";
+import CartContextProvider from "@/store/cartContext";
 
 export {
   // Catch any errors thrown by the Layout component.
