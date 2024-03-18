@@ -1,20 +1,24 @@
 import { useCart } from "@/store/cartContext";
 import { StatusBar } from "expo-status-bar";
 
-import { FlatList, Platform, View } from "react-native";
+import { FlatList, Platform, Text, View } from "react-native";
 import CartListItem from "./CartListItem";
+import Button from "@/components/custom/Button";
 
 function Cart() {
-  const { cartItems } = useCart();
+  const { cartItems, totalPrice } = useCart();
   return (
-    <View>
+    <View style={{ width: "95%", marginHorizontal: "auto" }}>
       <FlatList
         data={cartItems}
         renderItem={({ item }) => (
           <CartListItem key={item.id} cartItem={item} />
         )}
       />
-
+      <Text style={{ marginTop: 20, fontSize: 20, fontWeight: "500" }}>
+        {totalPrice}
+      </Text>
+      <Button text="Checkout"></Button>
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </View>
   );

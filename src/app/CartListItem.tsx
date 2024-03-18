@@ -11,7 +11,7 @@ type CartListItemProps = {
 
 const CartListItem = ({ cartItem }: CartListItemProps) => {
   const { updateQuantity } = useCart();
-  const totalPrice = (cartItem.quantity * cartItem.product.price).toFixed(2);
+
   return (
     <View style={styles.container}>
       <Image
@@ -43,7 +43,6 @@ const CartListItem = ({ cartItem }: CartListItemProps) => {
             style={{ padding: 5 }}
           />
         </View>
-        <Text style={styles.price}>${totalPrice}</Text>
       </View>
     </View>
   );
