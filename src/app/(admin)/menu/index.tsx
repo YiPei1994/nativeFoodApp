@@ -7,7 +7,6 @@ export default function TabOneScreen() {
   return (
     <>
       {" "}
-      <Stack.Screen options={{ title: "menu" }} />
       <FlatList
         data={products}
         numColumns={2}

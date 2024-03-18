@@ -22,6 +22,8 @@ export default function MenuLayout() {
           </Link>
         ),
       }}
-    />
+    >
+      <Stack.Screen name="index" options={{ title: "menu" }} />
+    </Stack>
   );
 }
