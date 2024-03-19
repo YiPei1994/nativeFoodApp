@@ -11,7 +11,7 @@ export default function MenuLayout() {
         options={{
           title: "menu",
           headerRight: () => (
-            <Link href="/AddMenu" asChild>
+            <Link href="/(admin)/menu/create" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
@@ -31,7 +31,7 @@ export default function MenuLayout() {
         options={{
           title: "menu",
           headerRight: () => (
-            <Link href="/AddMenu" asChild>
+            <Link href="/(admin)/menu/create" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
