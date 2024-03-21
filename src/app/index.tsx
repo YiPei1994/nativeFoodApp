@@ -13,6 +13,9 @@ const index = () => {
       <Link href={"/(admin)/menu"} asChild>
         <Button text="Admin" />
       </Link>
+      <Link href={"/(auth)/signIn"} asChild>
+        <Button text="Sign in" />
+      </Link>
     </View>
   );
 };
