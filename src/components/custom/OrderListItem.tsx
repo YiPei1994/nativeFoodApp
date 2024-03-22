@@ -1,52 +1,53 @@
-import Colors from "@/constants/Colors";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import React from "react";
+
+import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from "dayjs";
+import { Link, useSegments } from "expo-router";
 import { Order } from "@assets/types";
 
-import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
-import utc from "dayjs/plugin/utc";
-import dayjs from "dayjs";
+dayjs.extend(relativeTime);
+
 type OrderListItemProps = {
   order: Order;
 };
 
-function OrderListItem({ order }: OrderListItemProps) {
-  dayjs.extend(utc);
+const OrderListItem = ({ order }: OrderListItemProps) => {
+  const segments = useSegments();
 
   return (
-    <Link asChild href={`/order/${order.id}`}>
-      <View style={styles.container}>
+    <Link href={`/${segments[0]}/order/${order.id}`} asChild>
+      <Pressable style={styles.container}>
         <View>
           <Text style={styles.title}>Order #{order.id}</Text>
-          <Text style={styles.text}>
-            {dayjs.utc(order.created_at).hour()} hours ago
-          </Text>
+          <Text style={styles.time}>{dayjs(order.created_at).fromNow()}</Text>
         </View>
-        <Text style={styles.title}>{order.status}</Text>
-      </View>
+
+        <Text style={styles.status}>{order.status}</Text>
+      </Pressable>
     </Link>
   );
-}
-
-export default OrderListItem;
+};
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    borderRadius: 20,
-    padding: 15,
-    overflow: "scroll",
-    flex: 1,
-    marginVertical: 5,
+    padding: 10,
+    borderRadius: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-
   title: {
-    fontWeight: "600",
-    fontSize: 14,
+    fontWeight: "bold",
+    marginVertical: 5,
   },
-  text: {
-    color: Colors.light.tabIconDefault,
+  time: {
+    color: "gray",
+  },
+  status: {
+    fontWeight: "500",
   },
 });
+
+export default OrderListItem;
