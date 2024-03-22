@@ -8,7 +8,7 @@ export default function TabTwoScreen() {
   return (
     <>
       {" "}
-      <Stack.Screen options={{ title: "Orders" }} />
+      <Stack.Screen options={{ title: "Archive" }} />
       <FlatList
         data={orders}
         contentContainerStyle={{ gap: 10, padding: 10 }}
