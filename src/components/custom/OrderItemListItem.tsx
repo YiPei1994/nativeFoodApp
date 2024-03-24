@@ -1,12 +1,13 @@
-import Colors, { defaultPizzaImage } from "@/constants/Colors";
+import { View, Text, StyleSheet, Image } from "react-native";
+import React from "react";
 import { OrderItem } from "@assets/types";
-import { Image, StyleSheet, Text, View } from "react-native";
+import Colors, { defaultPizzaImage } from "@/constants/Colors";
 
 type OrderItemListItemProps = {
   item: OrderItem;
 };
 
-function OrderItemListItem({ item }: OrderItemListItemProps) {
+const OrderItemListItem = ({ item }: OrderItemListItemProps) => {
   return (
     <View style={styles.container}>
       <Image
@@ -21,16 +22,12 @@ function OrderItemListItem({ item }: OrderItemListItemProps) {
           <Text>Size: {item.size}</Text>
         </View>
       </View>
-      <View style={styles.cartOperations}>
-        <View style={styles.quantitySelector}>
-          <Text style={styles.quantity}>{item.quantity}</Text>
-        </View>
+      <View style={styles.quantitySelector}>
+        <Text style={styles.quantity}>{item.quantity}</Text>
       </View>
     </View>
   );
-}
-
-export default OrderItemListItem;
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -56,11 +53,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 5,
   },
-  cartOperations: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   quantitySelector: {
     flexDirection: "row",
     gap: 10,
@@ -76,3 +68,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+export default OrderItemListItem;

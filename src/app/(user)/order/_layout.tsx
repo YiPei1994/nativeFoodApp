@@ -1,11 +1,7 @@
 import { Stack } from "expo-router";
 
 function OrderLayout() {
-  return (
-    <Stack>
-      <Stack.Screen name="order" options={{ title: "order" }} />
-    </Stack>
-  );
+  return <Stack></Stack>;
 }
 
 export default OrderLayout;

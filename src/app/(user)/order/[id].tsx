@@ -3,7 +3,6 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import orders from "../../../../assets/data/orders";
 import OrderListItem from "@/components/custom/OrderListItem";
 import OrderItemListItem from "@/components/custom/OrderItemListItem";
-import OrderItemStatus from "@/components/custom/OrderItemStatus";
 
 const OrderDetailScreen = () => {
   const { id } = useLocalSearchParams();

@@ -7,7 +7,6 @@ import { Stack } from "expo-router";
 export default function TabTwoScreen() {
   return (
     <>
-      {" "}
       <Stack.Screen options={{ title: "Archive" }} />
       <FlatList
         data={orders}
