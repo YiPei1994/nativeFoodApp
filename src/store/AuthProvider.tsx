@@ -7,17 +7,19 @@ type AuthData = {
   session: Session | null;
   loading: boolean;
   profile: any;
+  isAdmin: boolean;
 };
 
 const AuthContext = createContext<AuthData>({
   session: null,
   loading: true,
   profile: null,
+  isAdmin: false,
 });
 
 const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState("");
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -51,7 +53,9 @@ const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   console.log(profile);
   return (
-    <AuthContext.Provider value={{ session, loading, profile }}>
+    <AuthContext.Provider
+      value={{ session, loading, profile, isAdmin: profile?.group === "Admin" }}
+    >
       {children}
     </AuthContext.Provider>
   );
