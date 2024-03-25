@@ -11,15 +11,18 @@ import {
   Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import products from "@assets/data/products";
+import { useCreateProduct } from "@/api/products/useCreateProduct";
 
 function Create() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [erros, setErros] = useState("");
   const [image, setImage] = useState<string | null>(null);
+  const { createProduct } = useCreateProduct();
 
+  const router = useRouter();
   const { id } = useLocalSearchParams();
   const isUpdating = !!id;
 
@@ -71,7 +74,16 @@ function Create() {
   };
   const onCreate = () => {
     if (validateInput() === false) return;
-    console.log("create ");
+
+    createProduct(
+      { name, price: parseFloat(price), image },
+      {
+        onSuccess: () => {
+          resetFields();
+          router.back();
+        },
+      }
+    );
     resetFields();
   };
   const onUpdate = () => {

@@ -1,19 +1,25 @@
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
 import { Link, Stack, useLocalSearchParams } from "expo-router";
-
-import products from "../../../../assets/data/products";
-
 import Colors, { defaultPizzaImage } from "@/constants/Colors";
 import { FontAwesome } from "@expo/vector-icons";
+import { useProductById } from "@/api/products/useProductById";
 
 const ProductDetailsScreen = () => {
   const { id } = useLocalSearchParams();
 
-  const product = products.find((product) => product.id === +id);
+  const { data: product, error, isLoading } = useProductById(+id);
 
+  if (isLoading) return <ActivityIndicator />;
+  if (error) return <Text>{error.message} </Text>;
   if (!product) return;
-
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: product.name }} />

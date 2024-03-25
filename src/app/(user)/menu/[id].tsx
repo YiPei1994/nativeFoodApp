@@ -1,22 +1,31 @@
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState } from "react";
-import { Redirect, Stack, useLocalSearchParams, useRouter } from "expo-router";
-
-import products from "../../../../assets/data/products";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { PizzaSize } from "@assets/types";
 import { defaultPizzaImage } from "@/constants/Colors";
 import Button from "@/components/custom/Button";
 import { useCart } from "@/store/cartContext";
+import { useProductById } from "@/api/products/useProductById";
 
 const sizes: PizzaSize[] = ["S", "M", "L", "XL"];
 
 const ProductDetailsScreen = () => {
-  const { id } = useLocalSearchParams();
   const [selectedSize, setSelectedSize] = useState<PizzaSize>("M");
   const { addItem } = useCart();
-  const product = products.find((product) => product.id === +id);
   const router = useRouter();
+  const { id } = useLocalSearchParams();
+  const { data: product, error, isLoading } = useProductById(+id);
 
+  if (isLoading) return <ActivityIndicator />;
+  if (error) return <Text>{error.message} </Text>;
+  if (!product) return;
   const addToCart = () => {
     if (!product) return;
     addItem(product, selectedSize);
