@@ -9,11 +9,14 @@ import {
   Image,
   Pressable,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import products from "@assets/data/products";
 import { useCreateProduct } from "@/api/products/useCreateProduct";
+import { useProductById } from "@/api/products/useProductById";
+import { useUpdateProducts } from "@/api/products/useUpdateProduct";
+import { useDeleteProduct } from "@/api/products/useDeleteProduct";
 
 function Create() {
   const [name, setName] = useState("");
@@ -21,12 +24,22 @@ function Create() {
   const [erros, setErros] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const { createProduct } = useCreateProduct();
+  const { deleteProduct } = useDeleteProduct();
 
   const router = useRouter();
-  const { id } = useLocalSearchParams();
-  const isUpdating = !!id;
 
-  const updateProduct = products.find((product) => product.id === +id);
+  const { id: idString } = useLocalSearchParams();
+  const id = parseFloat(
+    typeof idString === "string" ? idString : idString?.[0]
+  );
+
+  const isUpdating = !!id;
+  const { data: updateProduct, error, isLoading } = useProductById(+id);
+  const { updateProducts } = useUpdateProducts();
+
+  if (isUpdating && isLoading) return <ActivityIndicator />;
+  if (isUpdating && error) return <Text>{error.message} </Text>;
+  if (isUpdating && !updateProduct) return;
 
   useEffect(() => {
     const defaultData = () => {
@@ -72,7 +85,7 @@ function Create() {
     }
     return true;
   };
-  const onCreate = () => {
+  const onCreate = async () => {
     if (validateInput() === false) return;
 
     createProduct(
@@ -88,10 +101,22 @@ function Create() {
   };
   const onUpdate = () => {
     if (validateInput() === false) return;
-    console.log("update ");
+    updateProducts(
+      { id, name, price: parseFloat(price), image },
+      {
+        onSuccess: () => {
+          resetFields();
+          router.back();
+        },
+      }
+    );
   };
   const onDelete = () => {
-    console.log("delete");
+    deleteProduct(id, {
+      onSuccess: () => {
+        router.replace("/(admin)");
+      },
+    });
   };
   const onComfirm = () => {
     Alert.alert("Confirm", "Are you sure you want to delete this product?", [
@@ -101,7 +126,7 @@ function Create() {
   };
 
   const onSubmit = () => {
-    if (!isUpdating) {
+    if (isUpdating) {
       onUpdate();
     } else {
       onCreate();

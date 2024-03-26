@@ -13,8 +13,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useProductById } from "@/api/products/useProductById";
 
 const ProductDetailsScreen = () => {
-  const { id } = useLocalSearchParams();
-
+  const { id: idString } = useLocalSearchParams();
+  const id = parseFloat(typeof idString === "string" ? idString : idString[0]);
   const { data: product, error, isLoading } = useProductById(+id);
 
   if (isLoading) return <ActivityIndicator />;
