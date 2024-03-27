@@ -3,11 +3,11 @@ import React from "react";
 
 import { Link, Redirect } from "expo-router";
 import Button from "@/components/custom/Button";
-import { useSession } from "@/store/AuthProvider";
+import { useAuth } from "@/store/AuthProvider";
 import { supabase } from "./lib/supabase";
 
 const index = () => {
-  const { session, loading, isAdmin } = useSession();
+  const { session, loading, isAdmin } = useAuth();
 
   if (loading) {
     return <ActivityIndicator />;

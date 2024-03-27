@@ -1,10 +1,19 @@
-import { FlatList } from "react-native";
+import { ActivityIndicator, FlatList, Text } from "react-native";
 
-import orders from "@assets/data/orders";
 import OrderListItem from "@/components/custom/OrderListItem";
 import { Stack } from "expo-router";
+import { useUserOrders } from "@/api/orders/apiOrders";
+import { useAuth } from "@/store/AuthProvider";
 
 export default function TabTwoScreen() {
+  const {
+    profile: { id },
+  } = useAuth();
+
+  const { data: orders, isLoading, error } = useUserOrders(id);
+  if (error) return <Text>Something went wrong.</Text>;
+  if (isLoading) return <ActivityIndicator />;
+
   return (
     <>
       <Stack.Screen options={{ title: "Orders" }} />

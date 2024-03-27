@@ -62,4 +62,4 @@ const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
 export default AuthContextProvider;
 
-export const useSession = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
