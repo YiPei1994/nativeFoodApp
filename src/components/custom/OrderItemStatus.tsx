@@ -1,9 +1,10 @@
 import Colors from "@/constants/Colors";
+import { Tables } from "@/database.types";
 import { Order, OrderStatusList } from "@assets/types";
 import { Pressable, Text, View } from "react-native";
 
 type OrderItemStatusProps = {
-  order: Order;
+  order: Tables<"orders">;
 };
 
 function OrderItemStatus({ order }: OrderItemStatusProps) {

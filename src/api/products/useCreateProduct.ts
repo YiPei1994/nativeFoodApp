@@ -15,7 +15,7 @@ export const useCreateProduct = () => {
       }
     },
     async onSuccess() {
-      await queryClient.invalidateQueries({ queryKey: ["products"] });
+      await await queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError(error) {
       console.log(error);

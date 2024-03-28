@@ -12,7 +12,7 @@ export const useDeleteProduct = () => {
       }
     },
     async onSuccess() {
-      await queryClient.invalidateQueries({ queryKey: ["products"] });
+      await await queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
   return { deleteProduct };
